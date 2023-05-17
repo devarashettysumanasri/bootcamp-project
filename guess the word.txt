@@ -1,0 +1,43 @@
+import random
+
+def calculate_points(attempt):
+    base_points = 1000
+    attempt_penalty = max(0, (attempt - 1) * 100)
+    total_points = base_points - attempt_penalty
+    return total_points
+
+def play_game():
+    name = input("Enter your name: ")
+    print(f"Welcome, {name}!")
+    print("Let's play a word guessing game.")
+    print("I will think of an animal, and you have to guess it.")
+    print("You will have 10 chances to guess the animal correctly.")
+    print("For each chance, I will provide you with a hint.")
+    print("Let's begin!")
+
+    animals = ["lion", "elephant", "giraffe", "tiger", "monkey", "zebra", "koala", "panda", "gorilla", "hippo"]
+    word = random.choice(animals)
+    attempts = 0
+
+    while attempts < 10:
+        hint = word[:attempts] + "_" * (len(word) - attempts)
+        print(f"\nAttempt #{attempts + 1}")
+        print(f"Hint: {hint}")
+        print("Hint: This word belongs to the animal sector.")
+
+        guess = input("Enter your guess: ").lower()
+
+        if guess == word:
+            points = calculate_points(attempts + 1)
+            print(f"\nCongratulations, {name}! You guessed the animal correctly!")
+            print(f"You earned {points} points!")
+            break
+
+        print("Incorrect guess. Try again!")
+        attempts += 1
+
+    if attempts == 10:
+        print("\nGame over! You have used all your chances.")
+        print(f"The animal I was thinking of was: {word}")
+
+play_game()
